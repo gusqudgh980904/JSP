@@ -21,6 +21,7 @@
 <script type="text/javascript">
 window.onload=function(){
 	document.getElementById("btnPost").addEventListener("click",sendPost);
+	document.getElementById("jsFrmGet").addEventListener("click",sendGet);
 }//onload
 
 function sendPost(){
@@ -28,6 +29,12 @@ function sendPost(){
 	alert("javascript에서 POST 전송");
 	obj.submit();
 }//sendPost
+
+function sendGet(){
+	var obj=document.jsFrmGet;//폼객체를 얻고
+	alert("javascript에서 GET 전송");
+	obj.submit();//얻어낸 폼객체의 submit()를 호출
+}//sendGet
 
 $(function(){
 	$("#useJqueryPost").click(function(){
@@ -43,6 +50,11 @@ $(function(){
 	$("#replace").click(function(){
 		alert("location.replace로 요청");
 		window.location.replace("call.jsp");
+	});//click
+	
+	$("#jqFrmGetBtn").click(function(){
+		alert("jquery에서 submit요청");
+		$("#jqFrmGet").submit();
 	});//click
 	
 });//ready
@@ -62,7 +74,7 @@ $(function(){
 <input type="button" value="전송"id="btnPost"class="btn btn-default">
 </form>
 
-3.jQuery에tj submit()요청<br/>
+3.jQuery에서 submit()요청<br/>
 <form action="call.jsp" method="post" id="postFrm">
 <input type="button" value="전송"id="useJqueryPost"class="btn btn-default">
 	</form>
@@ -82,8 +94,16 @@ $(function(){
 <form action="call.jsp" method="get">
 <input type="submit" value="GET전송" class="btn btn-default">
 </form>
-</div>
+4.JavaScript
+<form action="call.jsp" method="get" name="jsFrmGet">
+<input type="button" value="GET전송" id="jsFrmGet" class="btn btn-default">
+</form><br/>
+5.JQuery
+<form action="call.jsp" method="get" id="jqFrmGet">
+<input type="button" value="GET전송" id="jqFrmGetBtn" class="btn btn-default">
+</form>
 
+</div>
 </div>
 </body>
 </html>
