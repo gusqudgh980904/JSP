@@ -1,13 +1,17 @@
-<%@page import="kr.co.sist.vo.LoginDataVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%//로그인 한 이후에 사용될 페이지
+//로그인을 하지 않은 상황이거나,로그인은 했지만 지정시간이 지난 후에 이 페이지를 요청하면 
+//다시 로그인하러 보낸다
+%>
+<%@include file="../common/jsp/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>use_info</title>
+    <title>use_session_value</title>
 
     <!-- bootstrap -->
     <link href="http://localhost/jsp_prj/common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,24 +29,10 @@
 </head>
 <body>
 <div>
-이전 페이지에서 사용한 값들을 또 사용하고 싶다.
-<!-- 이전페이지에서 사용한 값들을 querystring으로 만들어서 parameter로 받을 수 있다 -->
-<%=session %>
-<div>
-<%
-//페이지가 달라져도 한번 세션에 저장된 값은 얻어 낼 수 있다
-String id=(String)session.getAttribute("id");
-LoginDataVO ldVO=(LoginDataVO)session.getAttribute("userData");
+<!-- include directive로 합쳐진 jsp는 변수,method가 공유된다 -->
+<%=id %>(<%=ldVO.getName() %>)님 두번째 작업 페이지<br/>
+<a href="remove_session.jsp">세션삭제</a>
 
-if(id==null){//세션에서 꺼내온 값이 없다면
-	response.sendRedirect("http://localhost/jsp_prj/day0524/login_form.jsp");
-	return;
-}//if
-
-%>
-<strong><%=ldVO.getName() %></strong>(<%=id %>,<%=ldVO.getEmail() %>)<br/>
-</div>
-<a href="../day0525/use_session_value.jsp">허허</a>
 </div>
 </body>
 </html>

@@ -47,6 +47,10 @@ if(ldVO==null){
 	<a href="login_form.jsp">뒤로</a>
 	<%
 }else{
+	//다른 페이지에서 사용될 값을 세션에 저장(반드시 로그인 후에 서비스를 이용해야할 페이지에서 로그인 여부 체크)
+	session.setMaxInactiveInterval(60);//요청이 끝난 다음에 다음 요청이 발생하기전 까지의 시간
+	session.setAttribute("id",id);//세션에 값을 설정
+	session.setAttribute("userData",ldVO);
 	%>
 	<%=id%>,<%=ldVO.getName()%>(<a href="mailto:<%=ldVO.getEmail()%>">메일쓰기</a>)님이 로그인 하셨습니다
 	<% 

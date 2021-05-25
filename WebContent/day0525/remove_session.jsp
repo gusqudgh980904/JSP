@@ -1,13 +1,13 @@
-<%@page import="kr.co.sist.vo.LoginDataVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@include file="../common/jsp/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>use_info</title>
+    <title>remove_session</title>
 
     <!-- bootstrap -->
     <link href="http://localhost/jsp_prj/common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,24 +25,15 @@
 </head>
 <body>
 <div>
-이전 페이지에서 사용한 값들을 또 사용하고 싶다.
-<!-- 이전페이지에서 사용한 값들을 querystring으로 만들어서 parameter로 받을 수 있다 -->
-<%=session %>
-<div>
 <%
-//페이지가 달라져도 한번 세션에 저장된 값은 얻어 낼 수 있다
-String id=(String)session.getAttribute("id");
-LoginDataVO ldVO=(LoginDataVO)session.getAttribute("userData");
-
-if(id==null){//세션에서 꺼내온 값이 없다면
-	response.sendRedirect("http://localhost/jsp_prj/day0524/login_form.jsp");
-	return;
-}//if
-
+//세션삭제
+//세션값 삭제(세션은 존재하나 값만 삭제 된 것)
+session.removeAttribute("id");
+session.invalidate();//브라우저에 할당된 세션을 무효화
+//무효화 이후에는 세션에 값을 얻거나 삭제하는 등의 작업을 할 수 없다
+response.sendRedirect("http://localhost/jsp_prj/day0524/login_form.jsp");
 %>
-<strong><%=ldVO.getName() %></strong>(<%=id %>,<%=ldVO.getEmail() %>)<br/>
-</div>
-<a href="../day0525/use_session_value.jsp">허허</a>
+<%=session.getAttribute("id") %>
 </div>
 </body>
 </html>
