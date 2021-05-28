@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import kr.co.sist.vo.CarVO;
 import kr.co.sist.vo.LoginDataVO;
 import kr.co.sist.vo.LoginVO;
 
@@ -52,5 +55,92 @@ public class UserDAO {
 		
 		return ldVO;
 	}//selectLogin
+	
+	//제조사를 받아 제조사에 해당하는 차량의 모델명,연식,가격,옵션을 조회
+	//maker가 null이거나 ""이라면 모든 차량 조회
+	public List<CarVO> selectModel(String maker)throws SQLException{
+		List<CarVO> list = new ArrayList<CarVO>();
+		      
+		      DbConnection dc = DbConnection.getInstance();
+		      Connection con = null;
+		      PreparedStatement pstmt = null;
+		      ResultSet rs = null;
+		      
+		      try {
+		      //1. JNDI사용객체 생성
+		      //2. DataSource 얻기
+		      //3. Connection 얻기
+		         con = dc.getConn();
+		      //4. 쿼리문 생성객체 얻기
+		         StringBuilder selectModel = new StringBuilder();
+		         selectModel
+		         .append("   select    cmo.model, cmo.car_year, cmo.price, cmo.cc, cmo.car_option")
+		         .append("   from      car_model cmo, car_maker cma")
+		         .append("   where      (cmo.model = cma.model)");
+		         if(maker!=null&&!"".equals(maker)) {
+		        	 //상황에 따라 다른 쿼리문이 제작되어 실행되는 DynamicQuery
+		        	 selectModel.append("and cma.maker=?");
+		         }//if
+		         
+		         pstmt = con.prepareStatement(selectModel.toString());
+		      //5. 바인드변수 값 설정
+		         if(maker!=null&&!"".equals(maker)) {
+		         pstmt.setString(1, maker);
+		         }//if
+		         //6. 쿼리문 수행 후 결과 얻기
+		         rs = pstmt.executeQuery();
+		         
+		         CarVO cVO = null;
+		         
+		         while(rs.next()) {
+		            //조회된 레코드 한건을 VO에 저장
+		            cVO = new CarVO(rs.getString("model"), rs.getNString("car_option"), 
+		                  rs.getString("car_year"), rs.getInt("price"), rs.getInt("cc"));
+		            //생성된 객체를 List에 추가
+		            list.add(cVO);
+		         }
+		         
+		      }finally {
+		      //7. 연결 끊기
+		         dc.dbClose(con, pstmt, rs);
+		      }
+		      return list;
+	}//selectModel
+	
+	   public List<String> selectMaker()throws SQLException{
+		      List<String> list=new ArrayList<String>();
+		      
+		      Connection con=null;
+		      PreparedStatement pstmt=null;
+		      ResultSet rs=null;
+		      
+		      DbConnection dc=DbConnection.getInstance();
+		      
+		      try {
+		      //1. JNDI사용객체 생성.
+		      //2. DataSource 얻기.
+		      //3. Connection얻기.
+		         con=dc.getConn();
+		      //4. 쿼리문 생성객체 얻기
+		         StringBuilder selectModel=new StringBuilder();
+		         selectModel
+		         .append("   select   maker from car_country   ");
+		         
+		         pstmt=con.prepareStatement( selectModel.toString() );
+		      //6. 쿼리문 수행 후 결과 얻기
+		         rs=pstmt.executeQuery();
+		         
+		         while( rs.next() ) {
+		            //조회된 레코드 한건을 VO에 저장
+		            list.add(rs.getString("maker"));
+		         }//end while
+		         
+		      }finally {
+		      //7. 연결 끊기
+		         dc.dbClose(con, pstmt, rs);
+		      }//end finally
+		      
+		      return list;
+		   }//selectMaker
 	
 }//class
