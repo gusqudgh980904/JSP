@@ -74,7 +74,7 @@ public class UserDAO {
 		      //4. 쿼리문 생성객체 얻기
 		         StringBuilder selectModel = new StringBuilder();
 		         selectModel
-		         .append("   select    cmo.model, cmo.car_year, cmo.price, cmo.cc, cmo.car_option")
+		         .append("   select    cmo.car_img,cmo.model, cmo.car_year, cmo.price, cmo.cc, cmo.car_option")
 		         .append("   from      car_model cmo, car_maker cma")
 		         .append("   where      (cmo.model = cma.model)");
 		         if(maker!=null&&!"".equals(maker)) {
@@ -95,7 +95,7 @@ public class UserDAO {
 		         while(rs.next()) {
 		            //조회된 레코드 한건을 VO에 저장
 		            cVO = new CarVO(rs.getString("model"), rs.getNString("car_option"), 
-		                  rs.getString("car_year"), rs.getInt("price"), rs.getInt("cc"));
+		                  rs.getString("car_year"),rs.getString("car_img"),rs.getInt("price"), rs.getInt("cc"));
 		            //생성된 객체를 List에 추가
 		            list.add(cVO);
 		         }

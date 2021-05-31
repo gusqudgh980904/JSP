@@ -1,16 +1,15 @@
 package kr.co.sist.vo;
 
 public class CarVO {
-	private String model,car_option,car_year;
+	private String model,car_option,car_year,car_img;
 	private int price,cc;
 	public CarVO() {
-		super();
 	}
-	public CarVO(String model, String car_option, String car_year, int price, int cc) {
-		super();
+	public CarVO(String model, String car_option, String car_year, String car_img, int price, int cc) {
 		this.model = model;
 		this.car_option = car_option;
 		this.car_year = car_year;
+		this.car_img = car_img;
 		this.price = price;
 		this.cc = cc;
 	}
@@ -32,6 +31,12 @@ public class CarVO {
 	public void setCar_year(String car_year) {
 		this.car_year = car_year;
 	}
+	public String getCar_img() {
+		return car_img;
+	}
+	public void setCar_img(String car_img) {
+		this.car_img = car_img;
+	}
 	public int getPrice() {
 		return price;
 	}
@@ -44,5 +49,6 @@ public class CarVO {
 	public void setCc(int cc) {
 		this.cc = cc;
 	}
+
 
 }
