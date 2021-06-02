@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<!-- XML주석 -->
+	<msg>1안녕XML!</msg>
+	<msg>2안녕XML!</msg>
+	<msg>3안녕XML!</msg>
+	<msg1>4안녕XML!</msg1>
+	<!-- element에 내용이 없다면 /로 태그를 줄여서 사용 -->
+	<msg/>
+</root>

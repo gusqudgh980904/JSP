@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE persons SYSTEM "person.dtd">
+<persons>
+<!-- pernson 0~n개 정의 될 수 있다 -->
+<person>
+	<name>테스트</name>
+	<age></age>
+	<addr></addr>
+	<m/>
+</person>
+<person>
+	<name>테스트1</name><!-- name ?:0~1개 정의될 수 있다 -->
+	<!-- <name>테스트1</name> --><!-- name ?:0~1개 정의될 수 있다 -->
+	<age></age><!-- age +:1~n개가 정의될 수 있다 -->
+	<age></age><!-- age +:1~n개가 정의될 수 있다 -->
+	<age></age><!-- age +:1~n개가 정의될 수 있다 -->
+	<age></age><!-- age +:1~n개가 정의될 수 있다 -->
+	<addr></addr><!-- addr *:0~개가 정의될 수 있다 -->
+	<f/><!-- m|f |:둘중 하나만 정의되어야 한다 -->
+</person>
+</persons>
